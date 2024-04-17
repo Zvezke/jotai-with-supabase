@@ -31,6 +31,16 @@ const App = async () => {
   //   );
   // }
 
+  // if (!data.session) {
+  //   return (
+  //     <main className="flex min-h-screen items-center justify-center bg-neutral-900">
+  //       <h1 className="font-roboto text-2xl font-bold text-neutral-200">
+  //         You are not authenticated
+  //       </h1>
+  //     </main>
+  //   );
+  // }
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-neutral-900">
       <h1 className="font-roboto text-2xl font-bold text-neutral-200">
