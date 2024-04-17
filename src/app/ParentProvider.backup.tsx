@@ -51,21 +51,21 @@ const ParentProvider = () => {
     return { stables, stablesError };
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const supabase = createClient();
-      let { data: stables, error: stablesError } = await supabase
-        .from("stables")
-        .select(
-          "id, name, admin_id, users!users_stables(id,first_name,last_name), feeders(id, name, stable_id), horses(id, name)",
-        )
-        .order("name");
-      if (stables) {
-        setStables(stables);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const supabase = createClient();
+  //     let { data: stables, error: stablesError } = await supabase
+  //       .from("stables")
+  //       .select(
+  //         "id, name, admin_id, users!users_stables(id,first_name,last_name), feeders(id, name, stable_id), horses(id, name)",
+  //       )
+  //       .order("name");
+  //     if (stables) {
+  //       setStables(stables);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const handleInsertData = async () => {
     // Create Supabase client
