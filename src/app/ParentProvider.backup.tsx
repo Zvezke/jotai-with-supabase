@@ -87,8 +87,8 @@ const ParentProvider = () => {
     const supabase = createClient();
     // Sign in with email and password
     let { data: userData, error } = await supabase.auth.signInWithPassword({
-      email: "***REMOVED***",
-      password: "***REMOVED***",
+      email: process.env.NEXT_PUBLIC_SUPABASE_USERNAME!,
+      password: process.env.NEXT_PUBLIC_SUPABASE_PASSWORD!,
     });
     // if (userData) {
     //   setUser(userData);
