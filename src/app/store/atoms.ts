@@ -1,5 +1,8 @@
 import { atom } from "jotai";
 
+import type { User, Stable, Feeder } from "@/lib/types";
+import type { Horse } from "@/lib/stables.types";
+
 interface Data {
   id: string;
   created_at: string;
@@ -9,5 +12,21 @@ interface Data {
 
 // Create a WritableAtom
 const dataAtom = atom<Data[]>([]);
+// const userAtom = atom<string>("");
+// const horsesAtom = atom<Horses[]>([]);
 
-export { dataAtom };
+const userAtom = atom<User[]>([]);
+const horseAtom = atom<Horse[]>([]);
+const stablesAtom = atom<Stable[] | null>([]);
+const stableChildAtom = atom<Stable | null>(null);
+const stablesHorsesAtom = atom<Horse[] | null>([]);
+
+// export { dataAtom, userAtom };
+export {
+  dataAtom,
+  userAtom,
+  stablesAtom,
+  stableChildAtom,
+  stablesHorsesAtom,
+  horseAtom,
+};
