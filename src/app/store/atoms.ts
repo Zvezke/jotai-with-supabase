@@ -18,7 +18,7 @@ const dataAtom = atom<Data[]>([]);
 const userAtom = atom<User[]>([]);
 const horseAtom = atom<Horse[]>([]);
 const stablesAtom = atom<Stable[] | null>([]);
-const stableChildAtom = atom<Stable | null>(null);
+const selectedStableAtom = atom<Stable | null>(null);
 const stablesHorsesAtom = atom<Horse[] | null>([]);
 
 // export { dataAtom, userAtom };
@@ -26,7 +26,7 @@ export {
   dataAtom,
   userAtom,
   stablesAtom,
-  stableChildAtom,
+  selectedStableAtom,
   stablesHorsesAtom,
   horseAtom,
 };

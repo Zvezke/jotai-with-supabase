@@ -2,13 +2,24 @@
 
 import React from "react";
 
-import { useAtomValue, useSetAtom, useAtom } from "jotai";
-import { stableChildAtom, stablesAtom } from "@/app/store/atoms";
+import { useAtomValue, useSetAtom } from "jotai";
+import { selectedStableAtom, stablesAtom } from "@/app/store/atoms";
 import { createClient } from "@/utils/supabase/client";
 
-const StableChild = () => {
-  const stableChild = useAtomValue(stableChildAtom);
+const SelectedStable = () => {
+  const selectedStable = useAtomValue(selectedStableAtom);
   const setStables = useSetAtom(stablesAtom);
+
+  // addHorse is an async function that adds a horse to the stable.
+  // I have hardcoded the horse to be added.
+
+  // It first creates a new horse object with an id and a name.
+  // Then it creates a new array of horses with the new horse added to the list.
+  // It then creates a new stable object with the updated list of horses.
+
+  // It uses the Supabase client to insert a new horse into the database.
+  // If there is an error, it logs the error to the console.
+  // If there is no error, it updates Jotai with the new stable object.
 
   const addHorse = async () => {
     const supabase = createClient();
@@ -16,10 +27,13 @@ const StableChild = () => {
       id: "11111111-2222-3333-4444-555555555555",
       name: "Hest",
     };
-    const horseListWithNewHorse = [...(stableChild?.horses || []), horseToAdd];
-    if (stableChild) {
+    const horseListWithNewHorse = [
+      ...(selectedStable?.horses ?? []),
+      horseToAdd,
+    ];
+    if (selectedStable) {
       const stableChildWithUpdatedHorses = {
-        ...stableChild,
+        ...selectedStable,
         horses: horseListWithNewHorse,
       };
 
@@ -29,8 +43,8 @@ const StableChild = () => {
           {
             id: "11111111-2222-3333-4444-555555555555",
             name: "Hest",
-            stable_id: stableChild?.id,
-            admin_id: stableChild?.admin_id,
+            stable_id: selectedStable?.id,
+            admin_id: selectedStable?.admin_id,
           },
         ])
         .select();
@@ -64,4 +78,4 @@ const StableChild = () => {
   );
 };
 
-export default StableChild;
+export default SelectedStable;

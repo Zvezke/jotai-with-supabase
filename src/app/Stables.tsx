@@ -14,15 +14,17 @@ import React from "react";
 
 // Import Jotai hooks and atoms
 import { useAtomValue, useSetAtom, useStore } from "jotai";
-import { stablesAtom, stableChildAtom } from "./store/atoms";
+import { selectedStableAtom, stablesAtom } from "./store/atoms";
 
-import StableChild from "./StableChild";
+import SelectedStable from "./SelectedStable";
 
 const Stables = () => {
   // Get current value of atoms
   const stables = useAtomValue(stablesAtom);
   // Get setter function for dataAtom
-  const setStableChild = useSetAtom(stableChildAtom, { store: useStore() });
+  const setSelectedStable = useSetAtom(selectedStableAtom, {
+    store: useStore(),
+  });
 
   return (
     <div className="flex flex-col gap-2">
@@ -56,11 +58,11 @@ const Stables = () => {
               <div key={i} className="flex gap-2">
                 <button
                   className="rounded-md bg-slate-600 p-4"
-                  onClick={() => setStableChild(stable)}
+                  onClick={() => setSelectedStable(stable)}
                 >
                   Open slide in (setStableChild)
                 </button>
-                <StableChild />
+                <SelectedStable />
               </div>
               <br />
             </div>

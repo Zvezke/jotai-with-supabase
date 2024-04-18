@@ -10,24 +10,22 @@
 
 // The component is exported as the default export of the module.
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 // Import Jotai hooks and atoms
 import { useAtomValue, useSetAtom, useStore } from "jotai";
 import {
   dataAtom,
   userAtom,
+  selectedStableAtom,
   stablesAtom,
-  stableChildAtom,
 } from "./store/atoms";
 
 // Import Supabase client creation utility
 import { createClient } from "@/utils/supabase/client";
 // import { Session } from "@supabase/supabase-js";
 import Login from "@/components/Login";
-import StableChild from "./StableChild";
-
-// import { useServerAuthSession } from "@/utils/authSession";
+import SelectedStable from "./SelectedStable";
 
 const ParentProvider = () => {
   // Get current value of atoms
@@ -37,35 +35,23 @@ const ParentProvider = () => {
   // Get setter function for dataAtom
   const setData = useSetAtom(dataAtom, { store: useStore() });
   const setStables = useSetAtom(stablesAtom, { store: useStore() });
+  // const setStableChild = useSetAtom(selectedStableAtom, { store: useStore() });
 
-  const setStableChild = useSetAtom(stableChildAtom, { store: useStore() });
-
-  const useGetStablesUsers = async () => {
-    const supabase = createClient();
-    let { data: stables, error: stablesError } = await supabase
-      .from("stables")
-      .select(
-        "id, name, admin_id, users!users_stables(id,first_name,last_name), feeders(id, name, stable_id), horses(id, name)",
-      )
-      .order("name");
-    return { stables, stablesError };
-  };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const supabase = createClient();
-  //     let { data: stables, error: stablesError } = await supabase
-  //       .from("stables")
-  //       .select(
-  //         "id, name, admin_id, users!users_stables(id,first_name,last_name), feeders(id, name, stable_id), horses(id, name)",
-  //       )
-  //       .order("name");
-  //     if (stables) {
-  //       setStables(stables);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const supabase = createClient();
+      let { data: stables, error: stablesError } = await supabase
+        .from("stables")
+        .select(
+          "id, name, admin_id, users!users_stables(id,first_name,last_name), feeders(id, name, stable_id), horses(id, name)",
+        )
+        .order("name");
+      if (stables) {
+        setStables(stables);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleInsertData = async () => {
     // Create Supabase client
@@ -137,7 +123,7 @@ const ParentProvider = () => {
                   ))}
                 </ul>
               </li>
-              <StableChild />
+              <SelectedStable />
               <br />
             </div>
           ))}
